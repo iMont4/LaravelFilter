@@ -49,6 +49,10 @@ abstract class Filter
 	private function normalizeInput()
 	{
 		$fields = $this->request->input();
+		
+		if($this->request->input()){
+            		return $this->excelexport();
+        	     }
 
 		$data = [
 			'page'   => 1,
@@ -127,5 +131,30 @@ abstract class Filter
 
 		return $this->query->paginate($data['limit']);
 	}
+	
+	// ------------------------------------ function for excel export ------------------------------------
+
+
+
+    private function excelexport()
+    {
+        $arr = $this->query->orderBy('id', 'desc')->get()->toArray();
+
+        // ------------------------------------ excel header for export ------------------------------------
+        header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
+        header("Content-Disposition: attachment; filename=download.xls");
+
+        // ------------------------------------ make data table ------------------------------------
+
+        $flag = false;
+        foreach($arr as $key => $data) {
+            if(!$flag) {
+                echo implode("\t", array_keys($data)) . "\r\n";
+                $flag = true;
+            }
+            echo implode("\t", array_values($data)) . "\r\n";
+        }
+        exit();
+    }
 
 }

@@ -3,6 +3,7 @@
 namespace Mont4\Filter;
 
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Str;
 
 abstract class Filter
 {
@@ -87,7 +88,7 @@ abstract class Filter
 			}
 
 			$method = self::METHOD_LIKE;
-			if (str_contains($value, '~')) {
+			if (Str::contains($value, '~')) {
 				$value = str_replace('~', '', $value);
 //				$method = self::METHOD_LIKE;
 			}

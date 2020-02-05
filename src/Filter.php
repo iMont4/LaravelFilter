@@ -61,7 +61,7 @@ abstract class Filter
 		foreach ($fields as $key => $value) {
 			$fieldType = 'string'; // TODO.
 
-			if (in_array($key, $this->ignoreColumns)
+			if (in_array($key, $this->ignoreColumns))
 				continue;
 			if ($key == 'filter_method_request')
 				continue;

@@ -10,7 +10,8 @@ abstract class Filter
 	const METHOD_LIKE  = 'like';
 	const METHOD_EQUAL = 'equal';
 
-	static $availableColumns = [];
+	protected $availableColumns = [];
+	protected $ignoreColumns = [];
 
 	protected $availableSorts = [];
 
@@ -60,6 +61,8 @@ abstract class Filter
 		foreach ($fields as $key => $value) {
 			$fieldType = 'string'; // TODO.
 
+			if (in_array($key, $this->ignoreColumns)
+				continue;
 			if ($key == 'filter_method_request')
 				continue;
 			if ($key == 'page')
